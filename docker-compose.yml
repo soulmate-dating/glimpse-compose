@@ -37,6 +37,40 @@ services:
       - postgres
       - gateway
 
+  messenger:
+    container_name: messenger
+    image: ghcr.io/archiesw/messenger:v0.5.0-latest
+    environment:
+      DB_HOST: scylla-node1
+      DB_PORT: 9042
+    depends_on:
+      - scylla-node1
+    networks:
+      gateway:
+
+  scylla-node1:
+    container_name: scylla-node1
+    image: scylladb/scylla:5.2.14
+    ports:
+      - "9042:9042"
+    command: --memory 750M
+    volumes:
+      - "./schema.cql:/schema.cql"
+    networks:
+      gateway:
+
+  script_runner:
+    image: scylladb/scylla:5.2.14
+    depends_on:
+      - scylla-node1
+    restart: "no"
+    volumes:
+      - "./schema.cql:/schema.cql"
+    network_mode: "service:scylla-node1"
+    environment:
+      CQLSH_HOST: scylla-node1
+    entrypoint: [ "bash", "-c", "sleep 40 && cqlsh -f /schema.cql"]
+
   postgres:
     container_name: postgres
     image: postgres:latest
