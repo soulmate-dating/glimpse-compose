@@ -3,7 +3,7 @@ version: '3.9'
 services:
   gateway:
     container_name: gateway
-    image: maxage/gandalf-gateway:master
+    image: maxage/gandalf-gateway:v0.0.1
     ports:
       - "3000:3000"
     depends_on:
@@ -15,7 +15,7 @@ services:
 
   auth:
     container_name: auth
-    image: maxage/auth:master
+    image: maxage/auth:v0.0.1
     ports:
       - "8081:8081"
     depends_on:
@@ -27,7 +27,7 @@ services:
 
   profiles:
     container_name: profiles
-    image: maxage/profiles:master
+    image: maxage/profiles:v0.0.1
     ports:
       - "8080:8080"
     depends_on:
