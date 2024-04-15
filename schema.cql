@@ -16,8 +16,9 @@ create table if not exists messages(
     PRIMARY KEY ( id, date )
 ) with clustering order by (date DESC);
 
-create table if not exists users (
-    id uuid,
+create table if not exists users
+(
+    id         uuid,
     companions set<uuid>,
     PRIMARY KEY (id)
 );
