@@ -47,6 +47,26 @@ services:
       - postgres
       - gateway
 
+  reactions:
+    container_name: reactions
+    image: devarchie/reactions:v0.1.0
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: glimpse
+      POSTGRES_USER: glimpse
+      POSTGRES_PWD: password
+      PROFILE_SERVICE_GRPC_HOST: profiles
+      PROFILE_SERVICE_GRPC_PORT: 8080
+      MESSENGER_URL: http://messenger:8081
+    depends_on:
+      - postgres
+      - profiles
+      - messenger
+    networks:
+      gateway:
+      postgres:
+
   messenger:
     container_name: messenger
     image: devarchie/messenger:v0.6.3
