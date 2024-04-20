@@ -49,7 +49,7 @@ services:
 
   messenger:
     container_name: messenger
-    image: devarchie/messenger:v0.6.1
+    image: devarchie/messenger:v0.6.3
     environment:
       DB_HOST: scylla-node1
       DB_PORT: 9042
