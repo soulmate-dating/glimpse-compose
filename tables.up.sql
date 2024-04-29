@@ -1,5 +1,6 @@
 CREATE SCHEMA auth;
 CREATE SCHEMA profiles;
+CREATE SCHEMA reactions;
 
 CREATE TABLE auth.users
 (

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profiles
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profiles
+  template:
+    metadata:
+      labels:
+        app: profiles
+    spec:
+      containers:
+        - name: profiles
+          image: maxage/profiles:v0.0.2-alpha
+          ports:
+            - containerPort: 8080
+          resources:
+            limits:
+              cpu: 1m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: profiles
+spec:
+  selector:
+    app: profiles
+  ports:
+    - name: profiles-port
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
