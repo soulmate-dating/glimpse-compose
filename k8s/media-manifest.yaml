@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: media
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: media
+  template:
+    metadata:
+      labels:
+        app: media
+    spec:
+      containers:
+        - name: media
+          image: maxage/media:v0.0.1-alpha
+          ports:
+            - containerPort: 8082
+          resources:
+            limits:
+              cpu: 1m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: media
+spec:
+  selector:
+    app: media
+  ports:
+    - name: media-grpc-port
+      protocol: TCP
+      port: 8082
+  type: ClusterIP
