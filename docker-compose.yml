@@ -16,6 +16,7 @@ services:
       - gateway
       - auth
       - profiles
+      - messenger
       - media
 
   gateway:
