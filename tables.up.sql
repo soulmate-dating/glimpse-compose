@@ -54,3 +54,18 @@ CREATE TABLE profiles.prompts
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES profiles.profiles (user_id)
 );
+
+ALTER TYPE FAMILY_PLANS RENAME VALUE 'don''t want children' TO 'do not want children';
+
+ALTER TABLE profiles.prompts
+    ADD CONSTRAINT unique_prompt_pair UNIQUE (user_id, question, type);
+
+ALTER TABLE profiles.prompts
+DROP CONSTRAINT prompts_user_id_fkey;
+
+ALTER TABLE profiles.profiles
+    ADD COLUMN fk_main_pic_prompt uuid REFERENCES profiles.prompts(id);
+
+ALTER TABLE profiles.prompts
+    ADD CONSTRAINT prompts_user_id_fkey FOREIGN KEY (user_id) REFERENCES profiles.profiles(user_id);
+
