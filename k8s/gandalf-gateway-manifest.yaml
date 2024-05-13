@@ -14,9 +14,20 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: maxage/gandalf-gateway:v0.0.2
+          image: maxage/gandalf-gateway:v0.1.0
           ports:
             - containerPort: 3000
+          env:
+            - name: API_ADDRESS
+              value: "0.0.0.0:3000"
+            - name: PROFILES_ADDRESS
+              value: "profiles:8080"
+            - name: PROFILES_ENABLE_TLS
+              value: "false"
+            - name: AUTH_ADDRESS
+              value: "auth:8081"
+            - name: AUTH_ENABLE_TLS
+              value: "false"
 ---
 apiVersion: v1
 kind: Service

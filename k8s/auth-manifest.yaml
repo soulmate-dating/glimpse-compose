@@ -14,9 +14,34 @@ spec:
     spec:
       containers:
         - name: auth
-          image: maxage/auth:v0.0.1
+          image: maxage/auth:v0.1.0
           ports:
             - containerPort: 8081
+          env:
+            - name: POSTGRES_HOST
+              value: "postgres"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              value: "glimpse"
+            - name: POSTGRES_PASSWORD
+              value: "password"
+            - name: POSTGRES_DB
+              value: "glimpse"
+            - name: POSTGRES_SSL_MODE
+              value: "disable"
+            - name: API_ADDRESS
+              value: "0.0.0.0:8081"
+            - name: JWT_ACCESS_SECRET
+              value: "secret"
+            - name: JWT_ACCESS_EXPIRATION
+              value: "24h"
+            - name: JWT_REFRESH_SECRET
+              value: "refresh_secret"
+            - name: JWT_REFRESH_EXPIRATION
+              value: "720h"
+            - name: JWT_ISSUER
+              value: "glimpse"
 ---
 apiVersion: v1
 kind: Service
